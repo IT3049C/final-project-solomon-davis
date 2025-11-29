@@ -61,7 +61,7 @@ function Board({xNext, squares, onPlay}) {
         </>
         );
     }
-    export default function Game() {
+    export function Game() {
         const [xNext, setXNext] = useState(true);
         const [history, setGameHistory] = useState([Array(9).fill(null)]);
         const currentSquares = history[history.length - 1];

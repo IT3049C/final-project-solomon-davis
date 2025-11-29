@@ -1,6 +1,8 @@
-import './App.css'
-import { applySavedTheme } from './utils/theme';
+import '../App.css'
+import { applySavedTheme } from '../utils/theme';
 import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Navigation } from './navigation/Navigation';
 
 export function GameHubLayout(){
   useEffect(() => {
