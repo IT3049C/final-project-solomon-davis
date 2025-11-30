@@ -35,6 +35,14 @@ const router = createBrowserRouter([
               </ProtectedRoute>
               ),
             },
+            {
+              path: "/game/wordle",
+              element: (
+                <ProtectedRoute>
+                  <
+                </ProtectedRoute>
+              )
+            }
           ],
         },
       ]
