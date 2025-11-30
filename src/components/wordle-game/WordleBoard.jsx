@@ -12,8 +12,8 @@ export function SetupGrid() {
     return () => {
         document.removeEventListener("keydown", handleKeyDown);
 
-    }
-  })
+    };
+  }, [])
   
   return (
     <div
