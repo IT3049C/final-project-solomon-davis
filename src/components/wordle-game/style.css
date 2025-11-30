@@ -1,0 +1,65 @@
+@import 'animate.css';
+
+:root {
+  --background: #0b1623;
+  --text-color: #f5f8ff;
+  --correct: #548d4e;
+  --misplaced: #b59f3b;
+  --incorrect: #3a3a3c;
+  --border: #3a3a3c;
+
+  .light-mode {
+    --background: #f5f8ff;
+    --text-color: #0b1623;
+    --correct: #00cc66;
+    --misplaced: #ffcc00;
+    --incorrect: #ff4d4d;
+    --border: #3a3a3c;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: var(--background);
+  color: var(--text-color);
+}
+
+
+
+header {
+  text-align: center;
+  border-bottom: 2px solid var(--border);
+}
+
+#wordle-grid {
+  display: grid;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+  grid-template-columns: repeat(5, 60px);
+}
+
+.letter {
+  width: 60px;
+  height: 60px;
+  font-size: 2rem;
+  text-transform: uppercase;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.correct {
+  background: var(--correct);
+}
+
+.misplaced {
+  background: var(--misplaced);
+}
+
+.incorrect {
+  background: var(--incorrect);
+}

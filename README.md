@@ -1,5 +1,5 @@
 # GameHub
-
+Group Members: Solomon Davis
 ## Checklist
 
 - [ ] frequent commits to github.
