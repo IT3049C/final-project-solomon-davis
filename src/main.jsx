@@ -4,7 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GameHubLayout } from "./components/GameHubLayout.jsx";
 import { LandingPage } from "./pages/LandingPage.jsx";
-import { LobbyView } from "./components/Lobby.jsx"
+import { LobbyView } from "./components/UserSettings.jsx"
 import { applySavedTheme } from "./utils/theme.js";
 import { RPSGamePage } from "./pages/RPSGamePage.jsx";
 import { TicTacToePage } from "./pages/TicTacToePage.jsx";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         element: <GameHubLayout />,
         children: [
           {path: "/", element: <LandingPage />},
-          {path: "/lobby", element: <LobbyView />},
+          {path: "/settings", element: <LobbyView />},
           {
             path: "/game/rps",
             element: (
