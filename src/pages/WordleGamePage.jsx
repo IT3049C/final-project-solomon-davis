@@ -1,7 +1,6 @@
-import { WordleBoard } from "../components/wordle-game/WordleBoard"
-import { RevealResults } from "../components/wordle-game/RevealResults"
+import { SetupGrid } from "../components/wordle-game/WordleBoard"
 import { ThemeToggle } from "../components/wordle-game/WordleThemeToggle"
-import "..components/wordle-game/styles.css"
+import "../components/wordle-game/style.css"
 
 export function WordleGamePage() {
     return (
@@ -12,8 +11,7 @@ export function WordleGamePage() {
         </header>
         <main>
         <div id="game">
-            <RevealResults id="game-result"/>
-            <WordleBoard id="wordle-grid"/>
+            <SetupGrid id="wordle-grid"/>
         </div>
         </main>
             

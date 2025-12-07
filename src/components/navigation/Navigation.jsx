@@ -21,6 +21,8 @@ export function Navigation() {
             {' | '}
             <NavLink to="/game/tic-tac-toe">Tic Tac Toe</NavLink>
             {' | '}
+            <NavLink to="/game/wordle">Wordle</NavLink>
+            {' | '}
             <NavLink to="/settings">Settings</NavLink>
 
             {/**settings and a name */}

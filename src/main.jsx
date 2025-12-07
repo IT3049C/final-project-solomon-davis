@@ -9,6 +9,7 @@ import { applySavedTheme } from "./utils/theme.js";
 import { RPSGamePage } from "./pages/RPSGamePage.jsx";
 import { TicTacToePage } from "./pages/TicTacToePage.jsx";
 import {ProtectedRoute} from "./components/navigation/ProtectedRoute.jsx";
+import { WordleGamePage } from "./pages/WordleGamePage.jsx";
 
 applySavedTheme();
 
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
               path: "/game/wordle",
               element: (
                 <ProtectedRoute>
-                  <
+                  <WordleGamePage />
                 </ProtectedRoute>
               )
             }
