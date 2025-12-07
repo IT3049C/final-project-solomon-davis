@@ -8,7 +8,7 @@ export function ProtectedRoute({children}) {
 
     if (!hasSettings) {{/**If settings are not loaded */}
         {/**Navigate back to the lobby and change the state from the current location pathname to a different one (/lobby)*/}
-        return <Navigate to="/lobby" state={{from: location.pathname}} replace />;
+        return <Navigate to="/settings" state={{from: location.pathname}} replace />;
     }
     {/**Otherwise, go to the directed pathway (/game/rps or /game/tic-tac-toe) and load their elements*/}
     return children;

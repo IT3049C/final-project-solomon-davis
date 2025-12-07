@@ -1,6 +1,7 @@
 import { avatars } from "../../logic/avatars";
 
 export function PlayerInfoCard({ playerName, playerAvatar }) {
+  const selectedAvatar = avatars.find(a => a.key === playerAvatar);
   console.log(playerAvatar);
   console.log(playerName);
   return (
@@ -12,8 +13,11 @@ export function PlayerInfoCard({ playerName, playerAvatar }) {
       <div className="player-avatar">
         <img
           id="current-avatar"
-          src={avatars.find((a) => a.key === playerAvatar).image}
+          src={selectedAvatar?.image ?? avatars.defaultAvatar}
           alt="Player avatar"
+          width={"220px"}
+          height={"220px"}
+          display={"flex"}
         />
         <span id="player-name">{playerName}</span>
       </div>
