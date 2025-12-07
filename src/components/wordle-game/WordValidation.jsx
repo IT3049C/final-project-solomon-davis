@@ -21,7 +21,7 @@ export async function getRandomWord() {
  export async function checkGuess(guess, targetWord) {
   const is_Valid = await isValidWord(guess.toLowerCase());
   if (!is_Valid) {
-    return;
+    return Array(config.word_length).fill("incorrect");
   }
 
 

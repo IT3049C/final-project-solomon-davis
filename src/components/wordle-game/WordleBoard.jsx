@@ -68,6 +68,11 @@ export function SetupGrid() {
     if (!results) {
       setGameMessage("Invalid Word");
       shakeRow(currentAttempt);
+      setBoard(prev => {
+      const updated = prev.map(row => [...row]);
+      updated[currentAttempt][currentPosition] = letter;
+      return updated;
+    });
       return;
     }
 
@@ -138,6 +143,7 @@ export function SetupGrid() {
 
   return (
     <>
+    <h2 className="wordle-message">{gameMessage}</h2>
     <div
       id="wordle-grid"
       style={{
@@ -158,7 +164,6 @@ export function SetupGrid() {
         ))
       )}
     </div>
-    <p className="wordle-message">{gameMessage}</p>
     </>
   );
 }
