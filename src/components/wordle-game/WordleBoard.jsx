@@ -1,162 +1,164 @@
 import { config, getRandomWord } from "./WordValidation";
 import { checkGuess, isLetter } from "./WordValidation";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { shakeRow } from "./AnimateElement";
 
-
-
 export function SetupGrid() {
-    const [board, setBoard] = useState(
-    Array.from({length: config.max_attempts}, () =>
-    Array(config.word_length).fill(""))
-);
-const [currentAttempt, setCurrentAttempt] = useState(0);
-const [currentPosition, setCurrentPosition] = useState(0);
 
-function addLetter(letter) {
+  const [board, setBoard] = useState(
+    Array.from({ length: config.max_attempts }, () =>
+      Array(config.word_length).fill("")
+    )
+  );
 
-  if (currentPosition >= config.word_length) return;
+  const [currentAttempt, setCurrentAttempt] = useState(0);
+  const [currentPosition, setCurrentPosition] = useState(0);
 
-  setBoard(prev => {
-    const updatedPosition = prev.map(row => [...row]);
-    updatedPosition[currentAttempt][currentPosition] = letter;
-    return updatedPosition;
-  });
+  const [revealResults, setRevealResults] = useState(
+    Array.from({ length: config.max_attempts }, () =>
+      Array(config.word_length).fill("")
+    )
+  );
 
-  setCurrentPosition(pos => pos + 1);
-}
+  const [targetWord, setTargetWord] = useState("");
+  const [gameMessage, setGameMessage] = useState("");
+  const [gameOver, setGameOver] = useState(false);
 
-function removeLetter() {
-  if (currentPosition > 0) {
+
+  function addLetter(letter) {
+    if (gameOver) return;
+    if (currentPosition >= config.word_length) return;
+
     setBoard(prev => {
-        const updatedPosition = prev.map(row => [...row]);
-        updatedPosition[currentAttempt][currentPosition - 1] = "";
-        setCurrentPosition(pos => pos - 1)
-        return updatedPosition;
-    })
-}
-}
+      const updated = prev.map(row => [...row]);
+      updated[currentAttempt][currentPosition] = letter;
+      return updated;
+    });
 
-const [revealResults, setrevealResults] = useState( 
-  Array(config.max_attempts).fill(null).map(() => Array(config.word_length).fill(""))
-);
-
-
-async function submitGuess(){
-  if (currentPosition < config.word_length) {
-    console.error(`Invalid Input`);
-    shakeRow(currentAttempt);
-    return;
+    setCurrentPosition(position => position + 1);
   }
 
-const user_guess = board[currentAttempt].join("");
-console.log(user_guess);
+  function removeLetter() {
+    if (gameOver) return;
+    if (currentPosition === 0) return;
 
-const results = await checkGuess(user_guess, targetWord);
-console.log(results);
+    setBoard(prev => {
+      const updated = prev.map(r => [...r]);
+      updated[currentAttempt][currentPosition - 1] = "";
+      return updated;
+    });
 
-if (!results) {
-  setGameMessage(`Not enough letters`);
-  shakeRow(currentAttempt);
-  return;
-}
+    setCurrentPosition(position => position - 1);
+  }
 
-setrevealResults( prev => {
-    const updatedTile = [...prev]
-    updatedTile[currentAttempt] = results
-    return updatedTile;
-});
+  async function submitGuess() {
+    if (gameOver) return;
 
-    
-const is_won = results.every((rz) => rz === `correct`);
-if (is_won) {
-  setGameMessage('Game Over!');
-  setGameOver(true);
-  return;
-}
+    if (currentPosition < config.word_length) {
+      setGameMessage("Not enough letters");
+      shakeRow(currentAttempt);
+      return;
+    }
 
-const nextAttempt = currentAttempt + 1;
+    if (!targetWord) return; 
 
-const is_lost = nextAttempt >= config.max_attempts;
-if (is_lost) {
-  setGameMessage('Game Over!');
-  setGameOver(true);
-  return;
-}
+    const user_guess = board[currentAttempt].join("");
+    const results = await checkGuess(user_guess, targetWord);
 
+    if (!results) {
+      setGameMessage("Invalid Word");
+      shakeRow(currentAttempt);
+      return;
+    }
 
-function setGameMessage() {
-  return
-}
+    // Reveal tile results
+    setRevealResults(prev => {
+      const updated = prev.map(r => [...r]);
+      updated[currentAttempt] = results;
+      return updated;
+    });
 
-function setGameOver() {
-  return
-}
+    // Player Win
+    if (results.every(row => row === "correct")) {
+      setGameMessage("You win!");
+      setGameOver(true);
+      return;
+    }
 
-setCurrentAttempt(nextAttempt);
-setCurrentPosition(0);
+    const nextAttempt = currentAttempt + 1;
 
-}
+    // Player Lose
+    if (nextAttempt >= config.max_attempts) {
+      setGameMessage(`Game Over! The word was: ${targetWord}`);
+      setGameOver(true);
+      return;
+    }
 
-const [targetWord, setTargetWord] = useState("");
+    // Continue Searching Words
+    setCurrentAttempt(nextAttempt);
+    setCurrentPosition(0);
+  }
 
-useEffect(() => {
-    getRandomWord().then(word => setTargetWord(word));
-}, []);
+  function handleKeyDown(e) {
+    if (gameOver) return;
 
-
-
-
-function handleKeyDown(e) {
     const key = e.key;
-    if (isLetter(key)) { //if key was a letter addLetter
-      
+
+    if (isLetter(key)) {
       addLetter(key.toLowerCase());
-    
-    } else if (key == "Backspace") { //if key is backpace removeLetter
-      
+    } else if (key === "Backspace") {
       removeLetter();
-    
-    } else if (e.key == "Enter" && currentPosition === config.word_length) { //if key was enter submitGuess
-  
+    } else if (key === "Enter" && currentPosition === config.word_length) {
       submitGuess();
-  
     }
-  
-    }
-    
-    useEffect(() => {
+  }
+
+  //Lock Input
+  useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [currentPosition, currentAttempt, gameOver]);
 
-    return () => {
-        document.removeEventListener("keydown", handleKeyDown);
 
-    };
-  }, [])
-  
-  
+  useEffect(() => {
+    async function loadWord() {
+        
+    getRandomWord().then(word => {
+    setTargetWord(word);
+    console.log("Generated word:", word);
+  }
+);
+    }
+    loadWord();
+    
+
+}, [])
+
+
+
   return (
+    <>
     <div
-        id="wordle-grid"
-        style={{
-            display: "grid",
-            gridTemplateColumns: `repeat(${config.word_length}, 60px)`
-        }}
+      id="wordle-grid"
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${config.word_length}, 60px)`
+      }}
     >
-        {board.map((rowArray, row) =>
+      {board.map((rowArray, row) =>
         rowArray.map((letter, col) => (
-            <div 
-                key={`${row}-${col}`}
-                className={`letter ${revealResults[row][col]} flip`}>
-            
-            {letter}</div>
+          <div
+            key={`${row}-${col}`}
+            data-row={row}
+            data-col={col}
+            className={`letter ${revealResults[row][col]}`}
+          >
+            {letter}
+          </div>
         ))
-        )}
+      )}
     </div>
-      
-    )
-
-
+    <p className="wordle-message">{gameMessage}</p>
+    </>
+  );
 }
- 

@@ -9,10 +9,6 @@ export const gameState = {
   target_word: "",
 };
 
-export async function initializeGameState() {
-  gameState.target_word = await getRandomWord();
-
-}
 
 
 export async function getRandomWord() {
