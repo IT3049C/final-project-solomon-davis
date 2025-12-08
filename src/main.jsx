@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { GameHubLayout } from "./components/GameHubLayout.jsx";
 import { LandingPage } from "./pages/LandingPage.jsx";
 import { LobbyView } from "./components/UserSettings.jsx"
@@ -13,7 +13,7 @@ import { WordleGamePage } from "./pages/WordleGamePage.jsx";
 
 applySavedTheme();
 
-const router = createBrowserRouter([
+const router = createHashRouter([
       {
         path: "/",
         element: <GameHubLayout />,
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   
-
+  <StrictMode>
     <RouterProvider router={router} />
-
+  </StrictMode>
 );
