@@ -62,7 +62,7 @@ export const LobbyView = () => {
                     checked={a.key === avatar}
                     onChange={() => setAvatar(a.key)}
                   />
-                  <img src={a.image} alt="{avatar.key}" />
+                  <img src={a.image} alt="{avatar.key}" width={"800px"} height={"800px"}/>
                   <span>{capitalize(a.key)}</span>
                 </label>
               );
