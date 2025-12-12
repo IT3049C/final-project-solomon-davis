@@ -15,15 +15,17 @@ export function Navigation() {
 
     return (
         <nav>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/">Home 🎮</NavLink>
             {' | '}
-            <NavLink to="/game/rps">Rock Paper Scissors</NavLink>
+            <NavLink to="/game/rps">Rock Paper Scissors 🪨📄✂️</NavLink>
             {' | '}
-            <NavLink to="/game/tic-tac-toe">Tic Tac Toe</NavLink>
+            <NavLink to="/game/tic-tac-toe">Tic Tac Toe ✖️⭕</NavLink>
             {' | '}
-            <NavLink to="/game/wordle">Wordle</NavLink>
+            <NavLink to="/game/wordle">Wordle 🔠</NavLink>
             {' | '}
-            <NavLink to="/settings">Settings</NavLink>
+            <NavLink to="/game/hangman">Hangman 🧍‍♂️</NavLink>
+            {' | '}
+            <NavLink to="/settings">Settings ⚙️</NavLink>
 
             {/**settings and a name */}
             {settings && settings.name && (

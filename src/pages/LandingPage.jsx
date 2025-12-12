@@ -45,10 +45,10 @@ export function LandingPage() {
 
         {
             //One additional game of my choice
-            key: "",
-            name: "",
-            description: "",
-            developer: "",
+            key: "hangman",
+            name: "Hangman",
+            description: "Play a game of Hangman, where you have 6 tries to guess each word!",
+            developer: `${developers.name}`,
         }
     ];
 

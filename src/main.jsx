@@ -10,7 +10,7 @@ import { RPSGamePage } from "./pages/RPSGamePage.jsx";
 import { TicTacToePage } from "./pages/TicTacToePage.jsx";
 import {ProtectedRoute} from "./components/navigation/ProtectedRoute.jsx";
 import { WordleGamePage } from "./pages/WordleGamePage.jsx";
-
+import { HangmanGamePage } from "./pages/HangmanGamePage.jsx";
 applySavedTheme();
 
 const router = createHashRouter([
@@ -31,17 +31,19 @@ const router = createHashRouter([
           {
             path: "/game/tic-tac-toe",
             element: (
-              <ProtectedRoute> 
                   <TicTacToePage />
-              </ProtectedRoute>
               ),
             },
             {
               path: "/game/wordle",
               element: (
-                <ProtectedRoute>
                   <WordleGamePage />
-                </ProtectedRoute>
+              )
+            },
+             {
+              path: "/game/hangman",
+              element: (
+                  <HangmanGamePage />
               )
             }
           ],
