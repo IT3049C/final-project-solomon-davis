@@ -11,6 +11,10 @@ import { TicTacToePage } from "./pages/TicTacToePage.jsx";
 import {ProtectedRoute} from "./components/navigation/ProtectedRoute.jsx";
 import { WordleGamePage } from "./pages/WordleGamePage.jsx";
 import { HangmanGamePage } from "./pages/HangmanGamePage.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient()
+
 applySavedTheme();
 
 const router = createHashRouter([
@@ -31,7 +35,7 @@ const router = createHashRouter([
           {
             path: "/game/tic-tac-toe",
             element: (
-                  <TicTacToePage />
+              <TicTacToePage />
               ),
             },
             {
@@ -54,6 +58,8 @@ const router = createHashRouter([
 createRoot(document.getElementById("root")).render(
   
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 );

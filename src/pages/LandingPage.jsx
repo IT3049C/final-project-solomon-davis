@@ -10,7 +10,7 @@ export function LandingPage() {
         {
             key: "daviswk90",
             name: "daviswk90",
-            games: ["rps, tic-tac-toe"]
+            games: ["rps", "tic-tac-toe"]
         },
 
         {
@@ -25,7 +25,7 @@ export function LandingPage() {
             key: "rps",
             name: "Rock Paper Scissors",
             description: "Play a simple game of Rock Paper Scissors!",
-            developer: `${developers.name}`
+            developer: `${developers.games === 'rps' ? developers.name : false}`
 
         },
 
@@ -33,14 +33,14 @@ export function LandingPage() {
             key: "tic-tac-toe",
             name: "Tic-Tac-Toe",
             description: "Play a simple game of Tic-Tac-Toe!",
-            developer: `${developers.name}`
+            developer: `${developers.games === 'tic-tac-toe' ? developers.name : false}`
         },
 
         {
             key: "wordle",
             name: "Wordle",
             description: "Play an exciting word matching game to test your vocabulary and get the highest score!",
-            developer: `${developers.name}`
+            developer: `${developers.games === 'wordle' ? developers.name : false}`
         },
 
         {

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useGameRoomConnection } from "./multiplayer/StartPage";
+
+const DEFAULT = { players: [], turn: null, grid: Array.from({length: 9},() => null), version: 0 };
 
 function Square({value, whenSquareClicked}) {
     return (
@@ -49,41 +52,73 @@ function Board({xNext, squares, onPlay}) {
                 <Square value={squares[2]} whenSquareClicked={() => handleClick(2)}/>
             </div> 
             <div className="board-row">
-                <Square value={squares[4]} whenSquareClicked={() => handleClick(3)}/>
-                <Square value={squares[5]} whenSquareClicked={() => handleClick(4)}/>
-                <Square value={squares[6]} whenSquareClicked={() => handleClick(5)}/>
+                <Square value={squares[3]} whenSquareClicked={() => handleClick(3)}/>
+                <Square value={squares[4]} whenSquareClicked={() => handleClick(4)}/>
+                <Square value={squares[5]} whenSquareClicked={() => handleClick(5)}/>
             </div>
             <div className="board-row">
-                <Square value={squares[7]} whenSquareClicked={() => handleClick(6)}/>
-                <Square value={squares[8]} whenSquareClicked={() => handleClick(7)}/>
-                <Square value={squares[9]} whenSquareClicked={() => handleClick(8)}/>
+                <Square value={squares[6]} whenSquareClicked={() => handleClick(6)}/>
+                <Square value={squares[7]} whenSquareClicked={() => handleClick(7)}/>
+                <Square value={squares[8]} whenSquareClicked={() => handleClick(8)}/>
             </div>
         </>
         );
     }
     export function Game() {
-        const [xNext, setXNext] = useState(true);
+        const [localxNext, setLocalXNext] = useState(true);
         const [history, setGameHistory] = useState([Array(9).fill(null)]);
-        const currentSquares = history[history.length - 1];
+        const localCurrentSquares = history[history.length - 1];
+        
+        const { roomId, state, createRoom, pushState, setRoomId } = useGameRoomConnection({ refetchInterval: 1000 });
 
-        function handlePlay(squareNext) {
-            {/**Enumerate all the items in hisotry */}
-            setGameHistory([...history, squareNext]);
-            setXNext(!xNext);
+        const serverSquares = state?.grid ?? null;
+        const squares = Array.isArray(serverSquares) ? serverSquares : localCurrentSquares;
+        const xNext = typeof state?.xNext === "boolean" ? state.xNext : localxNext;
+        
+        
+        function handleLocalPlay(nextSquares) {
+            {/**Enumerate all the items in history */
+            setGameHistory([...history, nextSquares]);
+            setLocalXNext(!localxNext);
+        }
+    }
+        function handlePlay(nextSquares) {
+            if (roomId) {
+                const nextState = {
+                    ...state,
+                    grid: nextSquares,
+                    xNext: !xNext,
+                    version: (state?.version ?? 0) + 1,
+                };
+
+                pushState(nextState).catch((error) => {
+                    console.error("Failed to Push State", error);
+                });
+            } else {
+                handleLocalPlay(nextSquares);
+            }
         }
 
         return (
-            
+ 
             <div className="game">
+                <div className="room-code">
+                    {!roomId && <button onClick={() => createRoom(DEFAULT)}>Create Room</button>}
+                    <input aria-label="Room code" placeholder="Room Code" onChange={e => setRoomId(e.target.value.trim() || null)} />
+                    {roomId && <p>Room Code: <code>{roomId}</code></p>}
+                    {/* Render from state. on player action compute next and call pushState(next) */}
+                </div>
                 <div className="game-board">
-                    <Board xNext={xNext} squares={currentSquares} onPlay={handlePlay}/>
+                    <Board onPlay={handlePlay} xNext={xNext} squares={squares} />
                 </div>
                 <div className="game-info">
                     <ol></ol>
                 </div>
             </div>
+   
         );
     }
+
         
     function calculateWinner(squares) {
         const lines = [
