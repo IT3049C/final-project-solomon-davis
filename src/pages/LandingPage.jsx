@@ -32,7 +32,7 @@ export function LandingPage() {
         {
             key: "tic-tac-toe",
             name: "Tic-Tac-Toe",
-            description: "Play a simple game of Tic-Tac-Toe!",
+            description: "Play a simple game of Tic-Tac-Toe with a friend!",
             developer: `${developers.games === 'tic-tac-toe' ? developers.name : false}`
         },
 
@@ -60,7 +60,6 @@ export function LandingPage() {
     return (
         <section>
             <h2>Available Games</h2>
-            <p>Choose a game:</p>
 
             <input 
                 id="game-search"
@@ -75,7 +74,7 @@ export function LandingPage() {
                         setParms({search: value});
                     }
                 }} />
-
+            <h4 style={{textAlign: "left"}} className="choose-game">Choose a game:</h4>
             <ul style={{textAlign: "left"}} className="games">
                 {filteredGames.map((game) => (
                     <li key={game.key}>

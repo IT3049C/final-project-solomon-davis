@@ -15,11 +15,15 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #90e65f;
   text-decoration: inherit;
+  
 }
 a:hover {
-  color: #535bf2;
+  color: #ffffff;
+  border-radius: 8px;
+  border: 7px solid transparent;
+  background-color: #74cb42;
 }
 
 body {
@@ -47,11 +51,15 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #a9f87c;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+.choose-game {
+  font-size: 18px;
+  text-decoration: bold;
 }
 
 @media (prefers-color-scheme: light) {
@@ -60,7 +68,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #74cb42;
   }
   button {
     background-color: #f9f9f9;
