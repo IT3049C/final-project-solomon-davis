@@ -36,7 +36,7 @@ I feel okay about it, but I wish it didn't take as long in terms of how many hou
 
 - **In hindsight, what would you do differently?**
 - <!-- Answer below this line -->
-- I would try to section my time working on the project into little bits per day, if I didn't have other projects or exams to study for. I also would've liked to not use ChatGPT as much, or if at all, in terms of help with debugging issues or logic I got stuck on.
+- I would try to section my time working on the project into little bits per day, if I didn't have other projects or exams to study for. I also would've liked to not use ChatGPT as much, or if at all, in terms of help with debugging issues or logic I got stuck on. I did not just completely copy the code when using it though.
 
 - **What resources did you use?**
 - <!-- Answer below this line -->
