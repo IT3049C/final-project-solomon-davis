@@ -5,6 +5,8 @@ const playerName = "Billy";
 test.describe('Rock Paper Scissors', () => {
 
     test('Rock Paper Scissors Loading', async ({page}) => {
+        
+        //Load Initial State
         await page.goto('https://it3049c.github.io/final-project-solomon-davis/');
         await expect(page).toHaveURL('https://it3049c.github.io/final-project-solomon-davis/');
         await expect(page).toHaveTitle('GameHub');
@@ -22,6 +24,7 @@ test.describe('Rock Paper Scissors', () => {
 
         await expect(page).toHaveURL('https://it3049c.github.io/final-project-solomon-davis/#/game/rps');
 
+        //Interact With Game Elements
         await page.getByRole('button', { name: 'Rock' }).click();
         await page.getByRole('button', { name: 'Paper' }).click();
         await page.getByRole('button', { name: 'Scissor' }).click();
@@ -29,6 +32,7 @@ test.describe('Rock Paper Scissors', () => {
         await page.getByRole('button', { name: 'Paper' }).click();
         await page.getByRole('button', { name: 'Scissor' }).click();
 
-        await page.getByRole('button', { name: 'Reset Game' })
+        //Reset To Initial State
+        await page.getByRole('button', { name: 'Reset Game' }).click()
 })
 })
