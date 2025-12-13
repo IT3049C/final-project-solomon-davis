@@ -37,13 +37,32 @@ function isValidLetter(letter) {
     return true;
 }
 
-function gameWon() {
-    return word && word.split("").every(letter => guessedLetter.includes(letter));
+function GameWon() {
+
+    if (word && word.split("").every(letter => guessedLetter.includes(letter))){
+
+    return (
+        
+        <h2 className="display-won"
+        >
+        😊 You Win! The word was: {word}
+        </h2>
+    
     //game one when every letter in the randomized word is the same as the guessed letter and match the position 
+    )
+}
 }
 
-function gameLost () {
-    return attemptNum <= 0 //Game lost if the number of attempts is less than 0
+function GameLost () {
+    if (attemptNum < 1) {
+        return (
+        <h2
+        className="display-lost">
+            🚫 You Lost! The word was: {word}
+        </h2>
+    )
+    }
+       // attemptNum <= 0 //Game lost if the number of attempts is less than 0
 }
 
 
@@ -89,13 +108,9 @@ return (
             guessedLetters={guessedLetter}
             onGuess={(letter) => isValidLetter (letter)} 
         />
-        <h2 
-            className="display-won"
-            display={"hidden"}
-
-
-        >😊 You Win! The word was: {word}</h2>
-        {gameLost && <h2 className="display-lost">🚫 You Lost! The word was: {word}</h2>}
+        <GameWon />
+        <GameLost />
     </div>
 );
 }
+
