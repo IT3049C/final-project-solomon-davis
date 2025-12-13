@@ -70,19 +70,21 @@ export function useGameRoomConnection(options?:  {refetchInterval?: number }/*Nu
             if(roomId) queryCS.setQueryData(['room', roomId], gameState);
         }
     });
-async function safePush(roomId, localState){
-  const latest = await apiJoinRoom(roomId);
-  if((latest.gameState.version ?? 0) !== (localState.version ?? 0)){
-    // Someone else moved. merge or ask user to retry
-    return latest.gameState;
-  }
-  return apiUpdateRoom(roomId, { ...localState, version: (localState.version ?? 0) + 1 });
-}
+
+    async function safePush(roomId, localState){
+    const latest = await apiJoinRoom(roomId);
+    if((latest.gameState.version ?? 0) !== (localState.version ?? 0)){
+        // Someone else moved. merge or ask user to retry
+        return latest.gameState;
+    }
+    return apiUpdateRoom(roomId, { ...localState, version: (localState.version ?? 0) + 1 });
+    }
 
     return {
         roomId, state, isLoading, error, setRoomId, 
         createRoom: (initialState: any) => createRoom.mutateAsync(initialState),
         pushState: (next: any) => pushState.mutateAsync(next),
+        safePush
     };
 
 }

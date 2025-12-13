@@ -69,7 +69,7 @@ function Board({xNext, squares, onPlay}) {
         const [history, setGameHistory] = useState([Array(9).fill(null)]);
         const localCurrentSquares = history[history.length - 1];
         
-        const { roomId, state, createRoom, pushState, setRoomId } = useGameRoomConnection({ refetchInterval: 1000 });
+        const { roomId, state, createRoom, pushState, setRoomId, safePush } = useGameRoomConnection({ refetchInterval: 1000 });
 
         const serverSquares = state?.grid ?? null;
         const squares = Array.isArray(serverSquares) ? serverSquares : localCurrentSquares;
@@ -93,6 +93,9 @@ function Board({xNext, squares, onPlay}) {
 
                 pushState(nextState).catch((error) => {
                     console.error("Failed to Push State", error);
+                });
+                safePush(nextState).catch((error) => {
+                    console.error("Failed to Push Safe State", error)
                 });
             } else {
                 handleLocalPlay(nextSquares);
