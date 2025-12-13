@@ -76,7 +76,7 @@ export function LandingPage() {
                     }
                 }} />
 
-            <ul style={{textAlign: "left"}}>
+            <ul style={{textAlign: "left"}} className="games">
                 {filteredGames.map((game) => (
                     <li key={game.key}>
                         <Link to={`/game/${game.key}`}>{game.name}</Link>
