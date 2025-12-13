@@ -46,3 +46,12 @@ QueryClientProvider (https://tanstack.com/query/v4/docs/framework/react/referenc
 ChatGPT
 
 
+- **Short Reflection**
+-What I Learned:
+I learned a lot about REACT, JavaScript, TypeScript, Playwright, GitHub, how to import functions across files, useState, page Networking, and using classes, ids, html, and css in REACT and JS files
+
+-What Would I Change Next?
+If this question is referring to this project, I would work on the CSS and restylize the pages and games, and refine the multiplayer to not allow players to steal turns and register them as their own users
+
+-How Peer Feedback Shaped Decisions?
+After looking at the peer review, I changed the Wordle game so that it would let the player go to more than one line after submitting. I also made it so that submitting a word would not allow the player to go back, and lock in the answer. I also made the avatars a smaller size so that all games can be seen when loading.
